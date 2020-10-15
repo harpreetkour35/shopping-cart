@@ -1,25 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+//import components
+import Title from "./components/Title";
+import CartContainer from "./components/CartContainer";
+//import css
+import './App.css';
+import cartItems from "./cart-items";
+//redux imports
+import { createStore } from "redux";
+import reducer from "./reducer";
+import { Provider } from "react-redux";
+
+//initial Store 
+const initialStore = {
+  cart: cartItems,
+  total: 1000,
+  amount: 6
+};
+
+const store = createStore(reducer, initialStore);
+
+function App() {  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Title />
+      <CartContainer />
+    </Provider>
   );
 }
 
